@@ -1,70 +1,151 @@
-# Getting Started with Create React App
+README FILE
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Medispeak
 
-## Available Scripts
+Medical Records, Demystified.
 
-In the project directory, you can run:
+Your health. Your data. Your language.
 
-### `npm start`
+Medispeak is a secure, intelligent portal designed to break down the language barrier in healthcare. It provides a simple, smart, and secure platform for both healthcare providers and patients to manage and understand complex medical data.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+* *For Patients:* The Patient Portal is a personal health dashboard. You can see all your reports, but with one key difference: the "Chat With Your Report" feature. Using a powerful AI pipeline, we instantly translate any complex PDF report (past or new) into simple, easy-to-understand layman's terms. No more guessing. Just clear answers.
+* *For Doctors:* The Doctor Portal is a force multiplier. Instead of searching for a needle in a haystack, doctors can search for a patient by their unique ID and see their entire relevant history in one place. They can generate new, multi-medication prescriptions that are instantly saved as structured data and as a PDF, which is then available to the patient.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## ✨ Features
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+* *Role-Based Authentication:* Secure, separate workflows for Patients and Doctors using JWT.
+* *Self-Service Registration:* No admin needed. Doctors and Patients can register themselves from dedicated, role-specific pages.
+* *Dynamic Profile Creation:* Users fill out their own profile information after their first login.
+* *Doctor Dashboard:* Securely search for patients by their Unique Patient ID.
+* *Patient Dashboard:* View and manage personal details, and see your unique, shareable Patient ID.
+* *PDF Prescription Generation:* Doctors can fill out a multi-meditation form, which the backend saves to the database and generates as a legal PDF file using reportlab.
+* *Binary File Storage:* All generated PDFs are stored directly in the SQLite database (BYTEA/BLOB) for security and integrity.
+* *Report Management:* Both doctors and patients can view a list of all past reports and download them on-demand.
+* *AI Chatbot Integration:*
+    * Drag-and-drop any PDF (or an existing past report) into the chat window.
+    * Select from pre-defined prompts ("Summarize this," "What is my diagnosis?").
+    * The frontend sends the PDF and the prompt to an external ML pipeline to get a real-time, simple-language summary.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 🚀 Technology Stack
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* *Frontend:*
+    * React.js
+    * Tailwind CSS
+    * React Router
+    * Axios
+* *Backend:*
+    * Python 3
+    * Django & Django Rest Framework
+    * SQLite3 (for hackathon speed!)
+    * djangorestframework-simplejwt (for JWT)
+    * reportlab (for PDF generation)
+    * django-cors-headers
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## 🏁 Getting Started
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Follow these instructions to get the project running locally on your Windows machine.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Prerequisites
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+* Python
+* Node.js (which includes npm)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 1. Backend Setup (Django)
 
-## Learn More
+First, let's get the server running.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+PowerShell
+# 1. Go into the backend folder
+cd backend
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+# 2. Create and activate a Python virtual environment
+python -m venv venv
+.\venv\Scripts\activate
 
-### Code Splitting
+# 3. Install all required packages
+pip install django djangorestframework djangorestframework-simplejwt django-cors-headers reportlab
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+# 4. Create the database
+# (This will create a new db.sqlite3 file based on our models)
+python manage.py makemigrations users
+python manage.py migrate
 
-### Analyzing the Bundle Size
+# 5. Run the server!
+python manage.py runserver
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+# Your backend is now running at http://127.0.0.1:8000
 
-### Making a Progressive Web App
+### 2. Frontend Setup (React)
+PowerShell
+# 1. Go into the frontend folder
+cd frontend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+# 2. Install all node modules
+npm install
 
-### Advanced Configuration
+# 3. Install Tailwind CSS
+npm install -D tailwindcss postcss autoprefixer
+npx tailwindcss init -p
+# (Make sure your tailwind.config.js and index.css are configured)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+# 4. Run the app!
+npm start
 
-### Deployment
+# Your frontend is now running at http://localhost:3000 and is connected to your backend.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 💡 How to Use the App
 
-### `npm run build` fails to minify
+The admin panel is not required for any part of this workflow.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1.  *Doctor Registration:*
+    * Go to http://localhost:3000.
+    * Click "Doctor Sign Up" (or go to /register/doctor).
+    * Fill out the form (Full Name, Hospital Name, etc.).
+2.  *Patient Registration:*
+    * Go to http://localhost:3000.
+    * Click "Patient Sign Up" (or go to /register/patient).
+    * Fill out the form (Full Name, Username, etc.).
+3.  *Patient Flow (First Time):*
+    * Log in as the new patient.
+    * You will be shown the "Complete Your Profile" form.
+    * Fill it out and click "Save Profile."
+    * You will now see your full dashboard, including your Unique Patient ID (e.g., PAT-000002). Note this down.
+4.  *Doctor Flow:*
+    * Log in as the doctor.
+    * You will see the patient search dashboard.
+    * Enter the patient's ID (PAT-000002).
+    * The patient's profile and (empty) report list will appear.
+    * Click "Generate New Prescription."
+    * Fill out the multi-medication form and click "Save."
+5.  *Patient Flow (Second Time):*
+    * Log out as the doctor and log back in as the patient.
+    * You will now see the new PDF prescription in your "Past Reports" list.
+6.  *AI Chatbot Flow:*
+    * Drag the new prescription from the "Past Reports" list and drop it into the "Chat With Your Report" box.
+    * Click one of the prompts (e.g., "Summarize this...").
+    * The app will send the PDF to the NGROK endpoint and display the AI-generated summary in the chat window.
+
+## ⚙ API Endpoints
+
+All endpoints are prefixed with /api/.
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| POST | /register/patient/ | Creates a new patient user and profile. |
+| POST | /register/doctor/ | Creates a new doctor user and profile. |
+| POST | /token/ | Login. Returns JWT access/refresh tokens. |
+| GET | /my-profile/ | Patient: Gets their own profile. (Returns 404 if incomplete). |
+| POST | /my-profile/ | Patient: Creates/updates their profile details. |
+| GET | /my-doctor-profile/ | Doctor: Gets their own profile. |
+| GET | /search-patient/ | Doctor: Searches for a patient by ?unique_id=.... |
+| POST | /create-prescription/ | Doctor: Creates a new prescription (and PDF). |
+| GET | /my-reports/ | Patient: Gets a list of their own reports. |
+| GET | /patient-reports/<id>/ | Doctor: Gets a list of a patient's reports. |
+| GET | /download-report/<id>/ | Downloads the raw PDF file for a specific report. |
+| POST | [NGROK_URL] | (External) Sends a PDF and prompt to the ML pipeline. |
